@@ -25,7 +25,19 @@ void printString(char *str)
 
 void readString(char *buf)
 {
-  //TODO: Implementasi fungsi untuk membaca string
+  int buffer_index = 0;
+  char current_character;
+  unsigned int bios_key_input_ax; // stores the result from interrupt 0x16
+  unsigned int bios_teletype_ax; // prepares AX for interrupt 0x10
+  int max_buffer_size = 127; // maximum size of the buffer for null terminator at buf[127]
+
+  while (true) {
+    bios_key_input_ax = interrupt(0x16, (0x00 << 8), 0, 0, 0); // call BIOS interrupt 0x16 to read a key
+    current_character = (char)(bios_key_input_ax & 0xFF); // get the character from AX
+
+    
+  }
+
 }
 
 void clearScreen()

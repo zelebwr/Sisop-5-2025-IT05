@@ -1,5 +1,7 @@
 .PHONY: prepare bootloader stdlib shell kernel link build
 
+build: prepare bootloader stdlib shell kernel link
+
 prepare:
 	dd if=/dev/zero of=bin/floppy.img bs=512 count=2880
 
@@ -20,5 +22,3 @@ link:
 	ld86 -o bin/kernel.bin -d bin/kernel.o bin/kernel_asm.o bin/std_lib.o bin/shell.o
 	dd if=bin/bootloader.bin of=bin/floppy.img bs=512 count=1 conv=notrunc
 	dd if=bin/kernel.bin of=bin/floppy.img bs=512 seek=1 conv=notrunc
-
-build: prepare bootloader stdlib shell kernel link

@@ -14,7 +14,7 @@
 # now supported, but we still recommend to use the BIOS distributed with
 # Bochs. Now the start address can be calculated from image size.
 #=======================================================================
-romimage: file=$BXSHARE\BIOS-bochs-latest
+romimage: file=$BXSHARE/BIOS-bochs-latest
 
 #=======================================================================
 # CPU:
@@ -73,7 +73,7 @@ megs: 32
 # VGAROMIMAGE
 # You now need to load a VGA ROM BIOS into C0000.
 #=======================================================================
-vgaromimage: file=$BXSHARE\VGABIOS-lgpl-latest.bin
+vgaromimage: file=$BXSHARE/VGABIOS-lgpl-latest
 
 #=======================================================================
 # VGA:
@@ -106,7 +106,7 @@ vga: extension=vbe
 # only. In that case the size must match one of the supported types.
 #=======================================================================
 # Nama image sistem operasi yang akan digunakan bochs
-floppya: 1_44=bin\floppy.img, status=inserted
+floppya: 1_44=bin/floppy.img, status=inserted
 
 #=======================================================================
 # BOOT:
@@ -260,3 +260,12 @@ mouse: enabled=0
 #=======================================================================
 #i440fxsupport: enabled=1
 pci: enabled=1, chipset=i440fx
+
+#=======================================================================
+# DISPLAY_LIBRARY:
+# This option controls how Bochs draws the VGA screen.
+# You can select 'x' for X11, 'win32' for Windows, 'sdl' for SDL 1.2/2.0,
+# 'rfb' for VNC/RFB, 'vncsrv' for a VNC server that starts on demand,
+# 'nogui' for no display.
+#=======================================================================
+display_library: sdl2

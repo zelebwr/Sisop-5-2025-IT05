@@ -35,10 +35,22 @@ void readString(char *buf)
     bios_key_input_ax = interrupt(0x16, (0x00 << 8), 0, 0, 0); // call BIOS interrupt 0x16 to read a key
     current_character = (char)(bios_key_input_ax & 0xFF); // get the character from AX
 
-    if (current_character == '\r') break; // if Enter is pressed, exit loop to shell.c to print out the '\r\n' sequence
-
-    else if (current_character == '\n') break; // if Enter is pressed, exit loop to shell.c to print out the '\r\n' sequence
-
+    if (current_character == '\r') {
+      // if character is Enter (Carriage Return)
+      bios_teletype_ax = (0x0E << 8) | '\r'; // teletype carriage return 
+      interrupt(0x10, bios_teletype_ax, 0, 0, 0); 
+      bios_teletype_ax = (0x0E << 8) | '\n'; // teletype newline
+      interrupt(0x10, bios_teletype_ax, 0, 0, 0);
+      break;
+    }
+    else if (current_character == '\n') {
+      // if character is Enter (Carriage Return)
+      bios_teletype_ax = (0x0E << 8) | '\r'; // teletype carriage return 
+      interrupt(0x10, bios_teletype_ax, 0, 0, 0); 
+      bios_teletype_ax = (0x0E << 8) | '\n'; // teletype newline
+      interrupt(0x10, bios_teletype_ax, 0, 0, 0);
+      break;
+    }
     else if (current_character == '\b') { // if character is Backspace
       if (buffer_index > 0) {
         buffer_index--; // move back one character in the buffer

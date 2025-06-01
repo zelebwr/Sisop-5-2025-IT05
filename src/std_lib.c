@@ -25,7 +25,13 @@ int strcmp(char *str1, char *str2) {
 
 void strcpy(char *dst, char *src)
 {
-  //TODO: Implementasi penyalinan string
+  int i = 0; // initialize index
+
+  while (src[i] != '\0') { // copy until null terminator
+    dst[i] = src[i];
+    i++;
+  }
+  dst[i] = '\0'; // add null terminator to the end of the destination string
 }
 
 void clear(byte *buf, unsigned int size)

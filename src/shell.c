@@ -10,7 +10,11 @@ void shell(){
   while (true) {
     if (buf[0] != '\0') { // if the buffer is not empty
       printString("User> ");
-      printString(buf);
+      
+      if (strcmp(buf, "yo") == 0) printString("gurt");
+      else if (strcmp(buf, "gurt" == 0)) printString("yo"); 
+      else printString(buf);
+      
       printString("\r\n");
     }
 

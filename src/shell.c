@@ -4,12 +4,20 @@
 
 void shell(){
   char buf[128];
+  buf[0] = '\0'; // Initialize buffer to empty
+
   printString("Welcome to EorzeOS!\n");
   while (true) {
-    printString("> ");
+    printString("User> ");
+    
+    if (buf[0] != '\0') { // if the buffer is not empty
+      printString(buf);
+      printString("\r\n");
+    }
+
+    printString("User> ");
     readString(buf);
-    printString(buf);
-    printString("\n");
+    printString("\r\n");
   }
 }
 

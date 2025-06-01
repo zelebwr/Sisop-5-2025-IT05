@@ -35,9 +35,39 @@ void readString(char *buf)
     bios_key_input_ax = interrupt(0x16, (0x00 << 8), 0, 0, 0); // call BIOS interrupt 0x16 to read a key
     current_character = (char)(bios_key_input_ax & 0xFF); // get the character from AX
 
-    
-  }
+    if (current_character == '\r') break; // if Enter is pressed, exit loop to shell.c to print out the '\r\n' sequence
 
+    else if (current_character == '\n') break; // if Enter is pressed, exit loop to shell.c to print out the '\r\n' sequence
+
+    else if (current_character == '\b') { // if character is Backspace
+      if (buffer_index > 0) {
+        buffer_index--; // move back one character in the buffer
+        
+        bios_teletype_ax = (0x0E << 8) | '\b'; // prepare AX for interrupt 0x10 to print Backspace
+        interrupt(0x10, bios_teletype_ax, 0, 0, 0); // call BIOS interrupt 0x10 to print Backspace
+
+        bios_teletype_ax = (0x0E << 8) | ' '; // prepare AX for interrupt 0x10 to print space
+        interrupt(0x10, bios_teletype_ax, 0, 0, 0); // call BIOS interrupt 0x10 to print space (overwite with space)
+
+        bios_teletype_ax = (0x0E << 8) | '\b'; // prepare AX for interrupt 0x10 to print backspace again (moving the cursor back again)
+        interrupt(0x10, bios_teletype_ax, 0, 0, 0); // call BIOS interrupt 0x10 to print Backspace again
+      } 
+
+    } 
+    
+    else {
+      // for other non-control characters
+      if (buffer_index < max_buffer_size) { // check if buffer is not full
+        buf[buffer_index] = current_character; // store the character in the buffer
+        buffer_index++; // increment the buffer index
+
+        bios_teletype_ax = (0x0E << 8) | current_character; // prepare AX for interrupt 0x10 to print the character
+        interrupt(0x10, bios_teletype_ax, 0, 0, 0); // call BIOS interrupt 0x10 to print the character
+      }
+    }
+  }
+  // when the loop ends, we need to null-terminate the string
+  buf[buffer_index] = '\0'; // set the last character to null terminator
 }
 
 void clearScreen()

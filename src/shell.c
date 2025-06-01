@@ -12,7 +12,7 @@ void shell(){
       printString("User> ");
       
       if (strcmp(buf, "yo") == 0) printString("gurt");
-      else if (strcmp(buf, "gurt" == 0)) printString("yo"); 
+      else if (strcmp(buf, "gurt") == 0) printString("yo"); 
       else printString(buf);
       
       printString("\r\n");

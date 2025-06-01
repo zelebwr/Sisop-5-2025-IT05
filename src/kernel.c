@@ -1,6 +1,12 @@
 #include "shell.h"
 #include "kernel.h"
 
+static unsigned char current_text_color = 0x07; // Default text color (light gray on black background)
+
+void setTextColor(unsigned char color) {
+  current_text_color = color; // Set the current text color
+}
+
 int main() {
   clearScreen();
   shell();
@@ -35,22 +41,10 @@ void readString(char *buf)
     bios_key_input_ax = interrupt(0x16, (0x00 << 8), 0, 0, 0); // call BIOS interrupt 0x16 to read a key
     current_character = (char)(bios_key_input_ax & 0xFF); // get the character from AX
 
-    if (current_character == '\r') {
-      // if character is Enter (Carriage Return)
-      bios_teletype_ax = (0x0E << 8) | '\r'; // teletype carriage return 
-      interrupt(0x10, bios_teletype_ax, 0, 0, 0); 
-      bios_teletype_ax = (0x0E << 8) | '\n'; // teletype newline
-      interrupt(0x10, bios_teletype_ax, 0, 0, 0);
+    if (current_character == '\r' || current_character == '\n') {
       break;
     }
-    else if (current_character == '\n') {
-      // if character is Enter (Carriage Return)
-      bios_teletype_ax = (0x0E << 8) | '\r'; // teletype carriage return 
-      interrupt(0x10, bios_teletype_ax, 0, 0, 0); 
-      bios_teletype_ax = (0x0E << 8) | '\n'; // teletype newline
-      interrupt(0x10, bios_teletype_ax, 0, 0, 0);
-      break;
-    }
+    
     else if (current_character == '\b') { // if character is Backspace
       if (buffer_index > 0) {
         buffer_index--; // move back one character in the buffer
@@ -84,5 +78,14 @@ void readString(char *buf)
 
 void clearScreen()
 {
-  //TODO: Implementasi fungsi untuk membersihkan layar
+  unsigned int ax, bx, cx, dx; 
+
+  // ah = 0x06 (Scroll Up)
+  // al = 0x00 (number of lines to scrolll, 0 = clear the screen)
+  // bh = attribute to fill blank lines 
+  // ch, cl = (row, column) top-left corner of the window (0,0) 
+  // dh, dl = (row, column) bottom-right corner of the window (24,79) for 80x25 text mode
+
+  ax = (0x06 << 8) | 0x00; // Scroll Up function with no lines to scroll
+
 }

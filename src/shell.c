@@ -14,7 +14,8 @@ void shell(){
   while (true) {
     printString(current_username); 
     printString("> "); 
-    readString(buf); 
+    readString(buf);
+    printString("\r\n");
 
     parseCommand(buf, cmd, arg); // parse the inputs
 

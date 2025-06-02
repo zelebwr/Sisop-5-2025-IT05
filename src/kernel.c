@@ -1,15 +1,15 @@
 #include "shell.h"
 #include "kernel.h"
 
-static unsigned int current_text_color = 0x07; // Default text color (light gray on black background)
-
-/* void setTextColor(unsigned char color) {
-  current_text_color = color; // Set the current text color
-} */
-
 int main() {
   clearScreen(); // clear the screen at the start
   shell(); // start the shell
+}
+
+static unsigned int current_text_color = (0x07 << 8); // Default text color (light gray on black background)
+
+void setTextColor(unsigned int color) {
+  current_text_color = (color << 8); // Set the current text color
 }
 
 void printString(char *str)

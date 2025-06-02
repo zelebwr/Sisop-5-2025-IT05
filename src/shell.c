@@ -136,6 +136,22 @@ void shell(){
         printString("\r\n");
       }
       
+        else if (strcmp(cmd, "yogurt") == 0)
+      {
+        unsigned int randomValue = getBiosTick();
+        int remainder = mod(randomValue, 3);
+        
+        // Tambahkan \r di awal respons
+        printString("\r");
+        if (remainder == 0) {
+            printString("\ryo\r\n");
+        } else if (remainder == 1) {
+            printString("\rts unami gng </3\r\n");
+        } else {
+            printString("\rsygau\r\n");
+        }
+      }
+
       // if the command is not registered 
       else {
         printString(buf); 

@@ -3,13 +3,13 @@
 
 static unsigned int current_text_color = 0x07; // Default text color (light gray on black background)
 
-void setTextColor(unsigned int color) {
+/* void setTextColor(unsigned char color) {
   current_text_color = color; // Set the current text color
-}
+} */
 
 int main() {
-  clearScreen();
-  shell();
+  clearScreen(); // clear the screen at the start
+  shell(); // start the shell
 }
 
 void printString(char *str)

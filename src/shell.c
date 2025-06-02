@@ -32,6 +32,7 @@ void shell(){
 
   printString("Welcome to EorzeOS!\r\n");
   while (true) {
+    // printString("User> ");
     printUsername(); // print the username and grand company
     readString(buf); // read input from the user
     printString("\r\n");
@@ -40,28 +41,34 @@ void shell(){
 
     if(buf[0] != '\0') { // if buffer is not empty
 
-      // if the command is "grandcompany"
-      if(strcmp(cmd, "grandcompany") == 0) { 
+       // if the command is "grandcompany"
+       if(strcmp(cmd, "grandcompany") == 0) { 
         if (arg[0][0] == '\0') { // if there are no continued name after cmd
           printString("Please specify a grand company name. Please use 'maelstrom', 'twinadder', or 'immortalflames'.\r");
         }
         else if (strcmp(arg[0], "maelstrom") == 0) { // if the argument is "Maelstrom"
-          setTextColor(0x04); // set text color to red
+          // setTextColor(0x04); // set text color to red
           current_grand_company = 1; // set grand company to Maelstrom
           clearScreen(); // clear the screen
         }
         else if (strcmp(arg[0], "twinadder") == 0) { // if the argument is "Twin Adder"
-          setTextColor(0x06); // set text color to green
+          // setTextColor(0x06); // set text color to green
           current_grand_company = 2; // set grand company to Twin Adder
           clearScreen(); // clear the screen
         }
         else if (strcmp(arg[0], "immortalflames") == 0) { // if the argument is "Immortal Flames"
-          setTextColor(0x01); // set text color to yellow
+          // setTextColor(0x01); // set text color to yellow
           current_grand_company = 3; // set grand company to Immortal Flames
           clearScreen(); // clear the screen
         } else {
           printString("Unknown grand company name. Please use 'maelstrom', 'twinadder', or 'immortalflames'.\r\n");
         }
+      }
+
+      // if the command is "clear"
+      else if (strcmp(cmd, "clear") == 0) { 
+        current_grand_company = 0; // reset grand company
+        clearScreen(); // clear the screen
       }
 
       // if the command is "user"

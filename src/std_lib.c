@@ -2,13 +2,37 @@
 
 int div(int a, int b)
 {
-  //TODO: Implementasi pembagian
-  //NOTE: HARUS BISA ANGKA NEGATIF
+  int negative = 0;
+  int res = 0;
+
+  if (a < 0) {
+    a = -a;
+    negative = !negative;
+  }
+  if (b < 0) {
+    b = -b;
+    negative = !negative;
+  }
+
+  while (a >= b) {
+    a -= b;
+    res++;
+  }
+
+  return negative ? -res : res;
 }
 
 int mod(int a, int b)
 {
-  //TODO: Implementasi modulus
+   return a - div(a, b) * b;
+}
+
+void clear(byte *buf, unsigned int size)
+{
+  unsigned int i;
+  for (i = 0; i < size; i++) {
+    buf[i] = 0;
+  }
 }
 
 int strcmp(char *str1, char *str2) {
@@ -34,19 +58,76 @@ void strcpy(char *dst, char *src)
   dst[i] = '\0'; // add null terminator to the end of the destination string
 }
 
-void clear(byte *buf, unsigned int size)
+/*void clear(byte *buf, unsigned int size)
 {
   //TODO: Implementasi pembersihan buffer
 }
+  */
 
 void atoi(char *str, int *num)
 {
-  //TODO: Implementasi konversi string ke integer
-  //NOTE: HARUS BISA ANGKA NEGATIF
+  int i = 0;
+  int res = 0;
+  int negative = 0;
+  char c;
+
+  if (str[0] == '-') {
+    negative = 1;
+    i++;
+  }
+
+  while ((c = str[i]) != '\0') {
+    res = res * 10 + (c - '0');
+    i++;
+  }
+
+  if (negative) {
+    res = -res;
+  }
+
+  *num = res;
 }
+
 
 void itoa(int num, char *str)
 {
-  //TODO: Implementasi konversi integer ke string
-  //NOTE: HARUS BISA ANGKA NEGATIF
+  int i = 0;
+  int negative = 0;
+  int start, end;
+  char temp;
+  int digit;
+
+  if (num == 0) {
+    str[i++] = '0';
+    str[i] = '\0';
+    return;
+  }
+
+  if (num < 0) {
+    negative = 1;
+    num = -num;
+  }
+
+  while (num > 0) {
+    digit = mod(num, 10);       // Ganti num % 10
+    str[i++] = digit + '0';
+    num = div(num, 10);         // Ganti num / 10
+  }
+
+  if (negative) {
+    str[i++] = '-';
+  }
+
+  str[i] = '\0';
+
+  // Reverse string
+  start = 0;
+  end = i - 1;
+  while (start < end) {
+    temp = str[start];
+    str[start] = str[end];
+    str[end] = temp;
+    start++;
+    end--;
+  }
 }

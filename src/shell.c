@@ -96,6 +96,46 @@ void shell(){
         printString("yo\r\n");
       }
 
+       else if (strcmp(cmd, "add") == 0) {
+        int x, y;
+        char result[64];
+        atoi(arg[0], &x);
+        atoi(arg[1], &y);
+        itoa(x + y, result);
+        printString(result);
+        printString("\r\n");
+      }
+
+      else if (strcmp(cmd, "sub") == 0) {
+        int x, y;
+        char result[64];
+        atoi(arg[0], &x);
+        atoi(arg[1], &y);
+        itoa(x - y, result);
+        printString(result);
+        printString("\r\n");
+      }
+
+       else if (strcmp(cmd, "mul") == 0) {
+        int x, y;
+        char result[64];
+        atoi(arg[0], &x);
+        atoi(arg[1], &y);
+        itoa(x * y, result);
+        printString(result);
+        printString("\r\n");
+      }
+
+      else if (strcmp(cmd, "div") == 0) {
+        int x, y;
+        char result[64];
+        atoi(arg[0], &x);
+        atoi(arg[1], &y);
+        itoa(div(x, y), result); // pakai div buatan sendiri
+        printString(result);
+        printString("\r\n");
+      }
+      
       // if the command is not registered 
       else {
         printString(buf); 

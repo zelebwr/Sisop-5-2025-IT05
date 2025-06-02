@@ -47,17 +47,17 @@ void shell(){
           printString("Please specify a grand company name. Please use 'maelstrom', 'twinadder', or 'immortalflames'.\r");
         }
         else if (strcmp(arg[0], "maelstrom") == 0) { // if the argument is "Maelstrom"
-          setTextColor(0x04); // set text color to red
+          setTextColor(0x0C); // set text color to light red
           current_grand_company = 1; // set grand company to Maelstrom
           clearScreen(); // clear the screen
         }
         else if (strcmp(arg[0], "twinadder") == 0) { // if the argument is "Twin Adder"
-          setTextColor(0x06); // set text color to green
+          setTextColor(0x0E); // set text color to light yellow
           current_grand_company = 2; // set grand company to Twin Adder
           clearScreen(); // clear the screen
         }
         else if (strcmp(arg[0], "immortalflames") == 0) { // if the argument is "Immortal Flames"
-          setTextColor(0x01); // set text color to yellow
+          setTextColor(0x09); // set text color to light blue
           current_grand_company = 3; // set grand company to Immortal Flames
           clearScreen(); // clear the screen
         } else {

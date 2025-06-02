@@ -6,10 +6,10 @@ int main() {
   shell(); // start the shell
 }
 
-static unsigned int current_text_color = (0x07 << 8); // Default text color (light gray on black background)
+static unsigned char current_text_color = 0x07; // Default text color (light gray on black background)
 
-void setTextColor(unsigned int color) {
-  current_text_color = (color << 8); // Set the current text color
+void setTextColor(unsigned char color) {
+  current_text_color = color; // Set the current text color
 }
 
 void printString(char *str)
@@ -81,13 +81,13 @@ void clearScreen()
   unsigned int ax, bx, cx, dx; 
 
   // ah = 0x06 (scroll Up)
-  // al = 0x00 (number of lines to scrolll, 0 = clear the screen)
-  // bh = attribute to fill blank lines 
-  // ch, cl = (row, column) top-left corner of the window (0,0) 
+  // al = 0x00 (number of lines to scroll, 0 = clear the screen)
+  // bh = attribute to fill blank lines
+  // ch, cl = (row, column) top-left corner of the window (0,0)
   // dh, dl = (row, column) bottom-right corner of the window (24,79) for 80x25 text mode
 
   ax = (0x06 << 8); // scroll Up function with no lines to scroll
-  bx = current_text_color; // light gray text on black background
+  bx = (unsigned int)current_text_color << 8; // light gray text on black background
   cx = (0x00 << 8); // top-left corner (row 0, column 0)
   dx = (0x18 << 8) | 0x4F; // cottom-right corner (row 24, column 79)
   interrupt(0x10, ax, bx, cx, dx); // call BIOS interrupt 0x10 to clear the screen
@@ -98,10 +98,10 @@ void clearScreen()
   //  dh = 0x00 (Row, top row)
   //  dl = 0x00 (Column, left column)
 
-  ax = (0x02 << 0); // set Cursor Position function
+  ax = (0x02 << 8); // set Cursor Position function
   bx = 0x00; // page number 0
-  cx = 0x00; // doesn't mean anything here
+  // cx = 0x00; // doesn't mean anything here
   dx = (0x00 << 8) | 0x00; // top-left corner (row 0, column 0)
-  interrupt(0x10, ax, bx, cx, dx); // call BIOS interrupt 0x10 to set the cursor position to top left corner
+  interrupt(0x10, ax, bx, 0, dx); // call BIOS interrupt 0x10 to set the cursor position to top left corner
   return;
 }

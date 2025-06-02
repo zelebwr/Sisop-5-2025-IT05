@@ -4,36 +4,74 @@
 
 static char current_username[64] = "user"; // Default username
 
+// 0 = none
+// 1 = Maelstrom
+// 2 = Twin Adder
+// 3 = Immortal Flames
+static int current_grand_company = 0; 
+
+static void printUsername() {
+  printString(current_username);
+  if (current_grand_company == 0) {
+    // do nothing if no grand company is set 
+  } else if (current_grand_company == 1) {
+    printString("@Storm");
+  } else if (current_grand_company == 2) {
+    printString("@Serpent");
+  } else if (current_grand_company == 3) {
+    printString("@Flame");
+  }
+  printString("> ");
+}
+
 void shell(){
   char buf[128];
   char cmd[64];
   char arg[2][64];
-  buf[0] = '\0'; // Initialize buffer to empty
+  buf[0] = '\0'; // initialize buffer to empty
 
   printString("Welcome to EorzeOS!\r\n");
   while (true) {
-    printString(current_username); 
-    printString("> "); 
-    readString(buf);
+    printUsername(); // print the username and grand company
+    readString(buf); // read input from the user
     printString("\r\n");
 
     parseCommand(buf, cmd, arg); // parse the inputs
 
     if(buf[0] != '\0') { // if buffer is not empty
-      
+
+      // if the command is "grandcompany"
+      if(strcmp(cmd, "grandcompany") == 0) { 
+        if (arg[0][0] == '\0') { // if there are no continued name after cmd
+          printString("Please specify a grand company name. Please use 'maelstrom', 'twinadder', or 'immortalflames'.\r");
+        }
+        else if (strcmp(arg[0], "maelstrom") == 0) { // if the argument is "Maelstrom"
+          setTextColor(0x04); // set text color to red
+          current_grand_company = 1; // set grand company to Maelstrom
+          clearScreen(); // clear the screen
+        }
+        else if (strcmp(arg[0], "twinadder") == 0) { // if the argument is "Twin Adder"
+          setTextColor(0x06); // set text color to green
+          current_grand_company = 2; // set grand company to Twin Adder
+          clearScreen(); // clear the screen
+        }
+        else if (strcmp(arg[0], "immortalflames") == 0) { // if the argument is "Immortal Flames"
+          setTextColor(0x01); // set text color to yellow
+          current_grand_company = 3; // set grand company to Immortal Flames
+          clearScreen(); // clear the screen
+        } else {
+          printString("Unknown grand company name. Please use 'maelstrom', 'twinadder', or 'immortalflames'.\r\n");
+        }
+      }
+
       // if the command is "user"
-      if(strcmp(cmd, "user") == 0) { 
-        
-        // if the user didn't input a new username
-        if (arg[0][0] == '\0') { 
+      else if(strcmp(cmd, "user") == 0) { 
+        if (arg[0][0] == '\0') { // if the user didn't input a new username
           strcpy(current_username, "user"); 
         }
-
-        // if the user did input a username
-        else { 
+        else { // if the user did input a username
           strcpy(current_username, arg[0]);
         }
-
         // by default to be printed after the above operations
         printString("Username changed to ");
         printString(current_username);

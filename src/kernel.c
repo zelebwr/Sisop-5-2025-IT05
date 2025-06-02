@@ -1,9 +1,9 @@
 #include "shell.h"
 #include "kernel.h"
 
-static unsigned char current_text_color = 0x07; // Default text color (light gray on black background)
+static unsigned int current_text_color = 0x07; // Default text color (light gray on black background)
 
-void setTextColor(unsigned char color) {
+void setTextColor(unsigned int color) {
   current_text_color = color; // Set the current text color
 }
 
@@ -80,12 +80,28 @@ void clearScreen()
 {
   unsigned int ax, bx, cx, dx; 
 
-  // ah = 0x06 (Scroll Up)
+  // ah = 0x06 (scroll Up)
   // al = 0x00 (number of lines to scrolll, 0 = clear the screen)
   // bh = attribute to fill blank lines 
   // ch, cl = (row, column) top-left corner of the window (0,0) 
   // dh, dl = (row, column) bottom-right corner of the window (24,79) for 80x25 text mode
 
-  ax = (0x06 << 8) | 0x00; // Scroll Up function with no lines to scroll
+  ax = (0x06 << 8); // scroll Up function with no lines to scroll
+  bx = current_text_color; // light gray text on black background
+  cx = (0x00 << 8); // top-left corner (row 0, column 0)
+  dx = (0x18 << 8) | 0x4F; // cottom-right corner (row 24, column 79)
+  interrupt(0x10, ax, bx, cx, dx); // call BIOS interrupt 0x10 to clear the screen
 
+  // set cursor to the top-left corner
+  //  ah = 0x02 (Set Cursor Position)
+  //  bh = 0x00 (Page number, usually 0)
+  //  dh = 0x00 (Row, top row)
+  //  dl = 0x00 (Column, left column)
+
+  ax = (0x02 << 0); // set Cursor Position function
+  bx = 0x00; // page number 0
+  cx = 0x00; // doesn't mean anything here
+  dx = (0x00 << 8) | 0x00; // top-left corner (row 0, column 0)
+  interrupt(0x10, ax, bx, cx, dx); // call BIOS interrupt 0x10 to set the cursor position to top left corner
+  return;
 }

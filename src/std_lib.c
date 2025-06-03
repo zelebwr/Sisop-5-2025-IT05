@@ -24,7 +24,9 @@ int div(int a, int b)
 
 int mod(int a, int b)
 {
-   return a - div(a, b) * b;
+  if (b==0) return 0;
+  while (a>=b) a-=b;
+  return a; 
 }
 
 void clear(byte *buf, unsigned int size)

@@ -5,6 +5,11 @@ int div(int a, int b)
   int negative = 0;
   int res = 0;
 
+  if (b == 0) {
+    printString("Error: division by zero\r\n");
+    return 0;  // bisa juga return INT_MAX atau nilai error lain
+  }
+
   if (a < 0) {
     a = -a;
     negative = !negative;
@@ -24,9 +29,7 @@ int div(int a, int b)
 
 int mod(int a, int b)
 {
-  if (b==0) return 0;
-  while (a>=b) a-=b;
-  return a; 
+   return a - div(a, b) * b;
 }
 
 void clear(byte *buf, unsigned int size)
@@ -112,7 +115,7 @@ void itoa(int num, char *str)
 
   while (num > 0) {
     digit = mod(num, 10);       // Ganti num % 10
-    str[i++] = digit + '0';
+    str[i++] = digit + '0';     //simpan angka ke str
     num = div(num, 10);         // Ganti num / 10
   }
 

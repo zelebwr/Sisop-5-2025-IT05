@@ -10,14 +10,43 @@ Maritza Adelia S | 5027241111
 
 ## Laporan resmi
 
-## Soal 1
+## Soal [Template]
 ### Overview
 ### Code block
 ```c
-Halo
+Template
 ```
 ### Explanation
 bahdbshdbdfh
 
 ### Input/&Output
-![halo/halo.png](assets/soal_1/halo.png)
+![halo/template.png](assets/soal_1/template.png)
+
+## Soal 3
+### Overview
+The code will change the username to <username> when the user types 'user <username>'.
+If no specific username is provided, only "user", the code will reset the username to the default user.
+
+### Code block
+```c
+Template
+```
+### Explanation
+bahdbshdbdfh
+
+### Input/&Output
+![halo/template.png](assets/soal_1/template.png)
+
+## Soal 6
+### Overview
+When the user types 'yogurt', the system will respond with a random part of the word or phrase each time. For instance, the first time the user types 'yogurt', it will return 'yo', the second time it will return 'ts unami gng </3', and the third time it will respond with 'sygau'. This process continues in a random selection of these responses.
+
+### Code block
+```c
+Template
+```
+### Explanation
+bahdbshdbdfh
+
+### Input/&Output
+![halo/template.png](assets/soal_1/template.png)

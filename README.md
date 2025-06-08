@@ -1,23 +1,12 @@
-# Sisop-5-2025-IT-Template
+# Sisop-5-2025-IT05
 
 ## Kelompok
 
 Nama | NRP
 --- | ---
-Amoes Noland | 5027231028
-Rafi' Afnaan Fathurrahman | 5027231040
-
-## Daftar Isi
-
-- [Kelompok](#kelompok)
-- [Daftar Isi](#daftar-isi)
-- [Soal](#soal)
-- [Petunjuk Soal](#petunjuk-soal)
-  - [Source](#source)
-  - [Headers](#headers)
-  - [Makefile](#makefile)
-  - [Video Demonstrasi](#video-demonstrasi)
-- [Laporan](#laporan)
+Tasya Aulia Darmawan | 5027241009
+Jonathan Zelig | 50272410
+Maritza Adelia S | 5027241
 
 ## Soal
 

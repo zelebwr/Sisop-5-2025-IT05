@@ -10,14 +10,18 @@ Maritza Adelia S | 5027241111
 
 ## Laporan resmi
 
-## Soal [Template]
+## Soal 1
 ### Overview
+This code is designed to echo the user’s input. Any command entered by the user will be written back exactly as it was input, followed by a carriage return and newline, if the command does not match any registered command.
 ### Code block
 ```c
-Template
+else {
+  printString(buf); 
+  printString("\r\n"); 
+}
 ```
 ### Explanation
->- bahdbshdbdfh
+When a user enters any text, it is stored in the buffer (buf). The shell then checks if the input matches any registered commands, and if no match is found, it prints the original input buffer followed by a carriage return and newline (\r\n).
 
 ### Input/&Output
 ![halo/template.png](assets/soal_1/template.png)
@@ -74,6 +78,72 @@ else if(strcmp(cmd, "user") == 0) {
 
 ### Input/&Output
 ![soal_2/soal_2.jpg](assets/soal_2.jpg)
+
+## Soal 4
+### Overview
+This code changes the terminal's color and prompt based on the selected Grand Company (Maelstrom, Twin Adder, or Immortal Flames). Each company assigns a specific color (red, yellow, or blue) and updates the prompt. Invalid or empty inputs show an error, and the "clear" command resets the terminal to its default state.
+
+### Code block
+#### shell.c - Grand Company State Tracking
+```c
+static int current_grand_company = 0;  // 0=None, 1=Maelstrom, 2=Twin Adder, 3=Immortal Flames
+
+static void printUsername() {
+  printString(current_username);
+  if (current_grand_company == 1) printString("@Storm");
+  else if (current_grand_company == 2) printString("@Serpent");
+  else if (current_grand_company == 3) printString("@Flame");
+  printString("> ");
+}
+```
+### Explanation
+> This static variable current_grand_company tracks which Grand Company the user has joined, where 0 means none, 1 is Maelstrom, 2 is Twin Adder, and 3 is Immortal Flames. The printUsername() function dynamically modifies the command prompt by appending the corresponding company suffix like "@Storm" or "@Serpent" to the username, visually reflecting the user's allegiance in the terminal.
+
+#### kernel.c - Color Handling
+```c
+static unsigned char current_text_color = 0x07; // Default text color (light gray on black background)
+
+void setTextColor(unsigned char color)
+{
+  current_text_color = color; // Set the current text color
+}
+```
+### Explanation
+> The current_text_color variable stores the active terminal color attribute using BIOS color codes, initialized to default light gray (0x07). The setTextColor() function allows changing this global color setting, which affects all subsequent text output by modifying the value stored in current_text_color.
+
+#### kernel.c - Command Handlers
+```c
+if(buf[0] != '\0') { // if buffer is not empty
+
+       // if the command is "grandcompany"
+       if(strcmp(cmd, "grandcompany") == 0) { 
+        if (arg[0][0] == '\0') { // if there are no continued name after cmd
+          printString("Please specify a grand company name. Please use 'maelstrom', 'twinadder', or 'immortalflames'.\r");
+        }
+        else if (strcmp(arg[0], "maelstrom") == 0) { // if the argument is "Maelstrom"
+          setTextColor(0x0C); // set text color to light red
+          current_grand_company = 1; // set grand company to Maelstrom
+          clearScreen(); // clear the screen
+        }
+        else if (strcmp(arg[0], "twinadder") == 0) { // if the argument is "Twin Adder"
+          setTextColor(0x0E); // set text color to light yellow
+          current_grand_company = 2; // set grand company to Twin Adder
+          clearScreen(); // clear the screen
+        }
+        else if (strcmp(arg[0], "immortalflames") == 0) { // if the argument is "Immortal Flames"
+          setTextColor(0x09); // set text color to light blue
+          current_grand_company = 3; // set grand company to Immortal Flames
+          clearScreen(); // clear the screen
+        } else {
+          printString("Unknown grand company name. Please use 'maelstrom', 'twinadder', or 'immortalflames'.\r\n");
+        }
+      }
+```
+### Explanation
+> This command handler processes the grandcompany keyword, first verifying if a valid company name argument (maelstrom/twinadder/immortalflames) is provided. When recognized, it updates both the terminal color via setTextColor() and the company ID state, then triggers clearScreen() to immediately apply the visual changes globally.
+
+### Input/&Output
+![halo/template.png](assets/soal_1/template.png)
 
 ## Soal 5
 ### Overview

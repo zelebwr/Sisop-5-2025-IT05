@@ -49,7 +49,7 @@ It compares the parsed cmd (first input of sentence) with "user". If it's true, 
 If the user types user <new_username>, copy <new_username> into current_username. It then prints a confirmation message.
 
 ### Input/&Output
-![halo/template.png](assets/soal_1/template.png)
+![soal_2/soal_2.jpg](assets/soal_2/soal_2.jpg)
 
 ## Soal 6
 ### Overview
@@ -79,4 +79,39 @@ Prints a different response based on the remainder:
 2 → "sygau"
 
 ### Input/&Output
-![halo/template.png](assets/soal_1/template.png)
+![soal_6/soal_6.jpg](assets/soal_6/soal_6.jpg)
+
+## Soal 7
+### Overview
+Makefile automates the build process for your operating system, creating a bootable floppy disk image.
+### Code block
+#### Makefile
+```c
+.PHONY: prepare bootloader stdlib shell kernel link build
+
+build: prepare bootloader stdlib shell kernel link
+
+prepare:
+	dd if=/dev/zero of=bin/floppy.img bs=512 count=2880
+
+bootloader:
+	nasm -f bin src/bootloader.asm -o bin/bootloader.bin
+
+stdlib:
+	bcc -ansi -c -o bin/std_lib.o src/std_lib.c -Iinclude
+
+shell:
+	bcc -ansi -c -o bin/shell.o src/shell.c -Iinclude
+
+kernel:
+	bcc -ansi -c -o bin/kernel.o src/kernel.c -Iinclude
+	nasm -f as86 src/kernel.asm -o bin/kernel_asm.o
+	nasm -f as86 src/kernel.asm -o bin/kernel.bin	
+
+link:
+	ld86 -o bin/kernel.bin -d bin/kernel.o bin/kernel_asm.o bin/std_lib.o bin/shell.o
+	dd if=bin/bootloader.bin of=bin/floppy.img bs=512 count=1 conv=notrunc
+	dd if=bin/kernel.bin of=bin/floppy.img bs=512 seek=1 conv=notrunc
+```
+### Explanation
+The process begins by initializing a blank floppy disk image, followed by building a bootloader for sector 0 and compiling essential components such as the standard library, shell logic, and kernel code. These components are then linked into a single kernel binary, and the bootable OS image is assembled by combining the bootloader and kernel binary, resulting in a final bin/floppy.img file.

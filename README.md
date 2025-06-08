@@ -24,7 +24,7 @@ else {
 When a user enters any text, it is stored in the buffer (buf). The shell then checks if the input matches any registered commands, and if no match is found, it prints the original input buffer followed by a carriage return and newline (\r\n).
 
 ### Input/&Output
-![halo/template.png](assets/soal_1/template.png)
+![soal_1/soal_1.jpg](assets/soal_1.jpg)
 
 ## Soal 2
 ### Overview
@@ -143,7 +143,10 @@ if(buf[0] != '\0') { // if buffer is not empty
 > This command handler processes the grandcompany keyword, first verifying if a valid company name argument (maelstrom/twinadder/immortalflames) is provided. When recognized, it updates both the terminal color via setTextColor() and the company ID state, then triggers clearScreen() to immediately apply the visual changes globally.
 
 ### Input/&Output
-![halo/template.png](assets/soal_1/template.png)
+![serpent/serpent.jpg](assets/serpent.jpg)
+![flame/flame.jpg](assets/flame.jpg)
+![storm/storm.jpg](assets/storm.jpg)
+![error/error.jpg](assets/error.jpg)
 
 ## Soal 5
 ### Overview

@@ -22,6 +22,30 @@ Template
 ### Input/&Output
 ![halo/template.png](assets/soal_1/template.png)
 
+## Soal 2
+### Overview
+The code implements a simple shell that responds to custom commands. For this task, the focus is on the yo and gurt commands that mimic each other’s output.
+
+### Code block
+#### shell.c
+```c
+else if (strcmp(cmd, "yo") == 0) {
+  printString("gurt\r\n");
+}
+
+else if (strcmp(cmd, "gurt") == 0) {
+  printString("yo\r\n");
+}
+
+```
+### Explanation
+> When the user types yo, the shell prints "gurt".
+> When the user types gurt, the shell prints "yo".
+> The implementation simply uses strcmp() to match the input and printString() to display the output.
+
+### Input/&Output
+![halo/yo.png](assets/soal_2/yo.png)
+
 ## Soal 3
 ### Overview
 The code will change the username to <username> when the user types 'user <username>'.
@@ -50,6 +74,126 @@ else if(strcmp(cmd, "user") == 0) {
 
 ### Input/&Output
 ![soal_2/soal_2.jpg](assets/soal_2.jpg)
+
+## Soal 5
+### Overview
+This task implements a simple calculator system in the shell that supports four operations: addition, subtraction, multiplication, and division using commands.
+
+### Code block
+#### std_lib.c
+```c
+int div(int a, int b) {
+  if (b == 0) {
+    printString("Error: division by zero\r\n");
+    return 0;
+  }
+  int negative = 0, res = 0;
+  if (a < 0) { a = -a; negative = !negative; }
+  if (b < 0) { b = -b; negative = !negative; }
+  while (a >= b) { a -= b; res++; }
+  return negative ? -res : res;
+}
+```
+### Explanation
+> This function manually calculates integer division by repeatedly subtracting b from a, counting how many times it fits. This is done to avoid using the / operator, which may not be available or allowed in low-level or custom kernel environments. It also checks for division by zero and handles sign adjustments for negative numbers.
+
+```c
+int mod(int a, int b)
+{
+   return a - div(a, b) * b;
+}
+```
+### Explanation
+> It’s used inside itoa() to get each digit of a number (e.g., 123 % 10 = 3) without using the % operator.
+
+```c
+void atoi(char *str, int *num) {
+  int i = 0, res = 0, negative = 0;
+  if (str[0] == '-') { negative = 1; i++; }
+  while (str[i] != '\0') {
+    res = res * 10 + (str[i] - '0');
+    i++;
+  }
+  *num = negative ? -res : res;
+}
+```
+### Explanation
+> Converts a string (like "123" or "-45") into an integer by parsing each character digit and assembling the result. This is essential to process user input in string form and turn it into integers for arithmetic.
+
+```c
+void itoa(int num, char *str) {
+  int i = 0, negative = 0;
+  if (num == 0) { str[i++] = '0'; str[i] = '\0'; return; }
+  if (num < 0) { negative = 1; num = -num; }
+  while (num > 0) {
+    str[i++] = mod(num, 10) + '0';
+    num = div(num, 10);
+  }
+  if (negative) str[i++] = '-';
+  str[i] = '\0';
+
+  // reverse string
+  int start = 0, end = i - 1;
+  while (start < end) {
+    char temp = str[start];
+    str[start++] = str[end];
+    str[end--] = temp;
+  }
+}
+```
+### Explanation
+> This function converts an integer into its string representation by extracting digits from right to left using modulo and division, storing them in reverse, and finally flipping the string. It avoids using % and / directly by calling custom mod and div.
+
+### Code block
+#### shell.c
+```c
+else if (strcmp(cmd, "add") == 0) {
+        int x, y;
+        char result[64];
+        atoi(arg[0], &x);
+        atoi(arg[1], &y);
+        itoa(x + y, result);
+        printString(result);
+        printString("\r\n");
+      }
+
+      else if (strcmp(cmd, "sub") == 0) {
+        int x, y;
+        char result[64];
+        atoi(arg[0], &x);
+        atoi(arg[1], &y);
+        itoa(x - y, result);
+        printString(result);
+        printString("\r\n");
+      }
+
+       else if (strcmp(cmd, "mul") == 0) {
+        int x, y;
+        char result[64];
+        atoi(arg[0], &x);
+        atoi(arg[1], &y);
+        itoa(x * y, result);
+        printString(result);
+        printString("\r\n");
+      }
+
+      else if (strcmp(cmd, "div") == 0) {
+        int x, y;
+        char result[64];
+        atoi(arg[0], &x);
+        atoi(arg[1], &y);
+        itoa(div(x, y), result); // pakai div buatan sendiri
+        printString(result);
+        printString("\r\n");
+      }
+```
+### Explanation
+> The shell reads 2 arguments (x, y), converts them from strings to integers using atoi().
+> Performs the corresponding operation (+, -, *, or / using custom div()).
+> Converts the result back to string using itoa() and prints it.
+
+### Input/&Output
+![calc/template.png](assets/soal_5/calc.png)
 
 ## Soal 6
 ### Overview

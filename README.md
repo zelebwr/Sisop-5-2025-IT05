@@ -44,7 +44,7 @@ else if (strcmp(cmd, "gurt") == 0) {
 > The implementation simply uses strcmp() to match the input and printString() to display the output.
 
 ### Input/&Output
-![halo/yo.png](assets/soal_2/yo.png)
+![halo/yo.png](assets/yo.png)
 
 ## Soal 3
 ### Overview
@@ -193,7 +193,7 @@ else if (strcmp(cmd, "add") == 0) {
 > Converts the result back to string using itoa() and prints it.
 
 ### Input/&Output
-![calc/template.png](assets/soal_5/calc.png)
+![calc/template.png](assets/calc.png)
 
 ## Soal 6
 ### Overview

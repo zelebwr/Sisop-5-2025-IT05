@@ -4,8 +4,8 @@
 
 Nama | NRP
 --- | ---
-Tasya Aulia Darmawan | 5027241009
-Jonathan Zelig | 5027241047
+Tasya Aulia D | 5027241009
+Jonathan Zelig S | 5027241047
 Maritza Adelia S | 5027241111
 
 ## Laporan resmi

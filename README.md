@@ -17,7 +17,7 @@ Maritza Adelia S | 5027241111
 Template
 ```
 ### Explanation
-bahdbshdbdfh
+>- bahdbshdbdfh
 
 ### Input/&Output
 ![halo/template.png](assets/soal_1/template.png)
@@ -45,11 +45,11 @@ else if(strcmp(cmd, "user") == 0) {
 }
 ```
 ### Explanation
-It compares the parsed cmd (first input of sentence) with "user". If it's true, and if the user types user (no argument), reset current_username to "user".
-If the user types user <new_username>, copy <new_username> into current_username. It then prints a confirmation message.
+> It compares the parsed cmd (first input of sentence) with "user". If it's true, and if the user types user (no argument), reset current_username to "user".
+> If the user types user <new_username>, copy <new_username> into current_username. It then prints a confirmation message.
 
 ### Input/&Output
-![soal_2/soal_2.jpg](assets/soal_2/soal_2.jpg)
+![soal_2/soal_2.jpg](assets/soal_2.jpg)
 
 ## Soal 6
 ### Overview
@@ -72,14 +72,14 @@ else if (strcmp(cmd, "yogurt") == 0) {
 }
 ```
 ### Explanation
-It calls getBiosTick() to get a "random" system timer value, uses mod() to compute randomValue % 3, yielding 0, 1, or 2.
-Prints a different response based on the remainder:
-0 → "yo"
-1 → "ts unami gng </3"
-2 → "sygau"
+> It calls getBiosTick() to get a "random" system timer value, uses mod() to compute randomValue % 3, yielding 0, 1, or 2.
+> Prints a different response based on the remainder:
+> 0 → "yo"
+> 1 → "ts unami gng </3"
+> 2 → "sygau"
 
 ### Input/&Output
-![soal_6/soal_6.jpg](assets/soal_6/soal_6.jpg)
+![soal_6/soal_6.jpg](assets/soal_6.jpg)
 
 ## Soal 7
 ### Overview
@@ -114,4 +114,4 @@ link:
 	dd if=bin/kernel.bin of=bin/floppy.img bs=512 seek=1 conv=notrunc
 ```
 ### Explanation
-The process begins by initializing a blank floppy disk image, followed by building a bootloader for sector 0 and compiling essential components such as the standard library, shell logic, and kernel code. These components are then linked into a single kernel binary, and the bootable OS image is assembled by combining the bootloader and kernel binary, resulting in a final bin/floppy.img file.
+> The process begins by initializing a blank floppy disk image, followed by building a bootloader for sector 0 and compiling essential components such as the standard library, shell logic, and kernel code. These components are then linked into a single kernel binary, and the bootable OS image is assembled by combining the bootloader and kernel binary, resulting in a final bin/floppy.img file.
